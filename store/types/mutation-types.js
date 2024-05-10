@@ -1,0 +1,5 @@
+export const SET_EMAIL_SIGNIN = "setEmailSignin"
+export const SET_PASSWORD_SIGNIN = "setPasswordSignin"
+export const SET_EMAIL_SIGNUP = "setEmailSignup"
+export const SET_PASSWORD_SIGNUP = "setPasswordSignup"
+export const SET_CONFIRM_PASSWORD_SIGNUP = "setConfirmPasswordSignup"

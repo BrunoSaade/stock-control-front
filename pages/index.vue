@@ -5,14 +5,14 @@
     v-card-text
       v-form(@submit.prevent='submitForm')
         v-text-field(v-model='email' label='Email' type='email')
-        v-text-field(v-model='senha' label='Senha' type='password')
+        v-text-field(v-model='password' label='Password' type='password')
         v-btn(
           type='submit' 
           color="primary"
           class="w-[240px] !bg-secondary-200"
-        ) Entrar
+        ) Login
   p.mt-4.text-s3 Don't have an account? 
-    span.cursor-pointer(@click="handlePushSignUp") Sign-up
+    NuxtLink.text-tertiary-200.underline(to="/signup") Sign up!
 </template>
 
 <script>
@@ -25,23 +25,40 @@ export default {
   layout: "Default",
   props: {},
   data() {
-    return {
-      email: '',
-      senha: ''
-    }
+    return {}
   },
   computed: {
-    ...mapState({}),
+    ...mapState({
+      authSignin: (state) => state.auth?.signin,
+    }),
+    email: {
+      get() {
+        return this.authSignin?.email
+      },
+      set(value) {
+        this.setSigninEmail(value)
+      },
+    },
+    password: {
+      get() {
+        return this.authSignin?.password
+      },
+      set(value) {
+        this.setSigninPassword(value)
+      },
+    }
   },
   watch: {},
   mounted() {},
   created() {},
   methods: {
+    ...mapActions({}),
+    ...mapMutations({
+      setSigninEmail: mutation_types.SET_EMAIL_SIGNIN,
+      setSigninPassword: mutation_types.SET_PASSWORD_SIGNIN
+    }),
     submitForm() {
     },
-    handlePushSignUp() {
-      this.$router.push('/signup')
-    }
-  }
+  },
 }
 </script>
