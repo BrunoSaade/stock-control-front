@@ -9,7 +9,12 @@ const state = {
       password: '',
       confirmPassword: ''
     },
-  }
+  },
+  newProduct: {
+    name: "",
+    quantity: 0,
+  },
+  products: [],
 }
 
 export default state
