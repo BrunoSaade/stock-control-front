@@ -21,7 +21,8 @@ export default {
   },
   methods: {
     logout() {
-      this.$router.push('/')
+      window.localStorage.clear()
+      window.location.href = '/'
     }
   }
 }
