@@ -3,7 +3,7 @@
   v-card(class="w-[540px]")
     v-card-title Login
     v-card-text
-      v-form(@submit.prevent='submitForm')
+      v-form(@submit.prevent='handleSignin')
         v-text-field(v-model='email' label='Email' type='email')
         v-text-field(v-model='password' label='Password' type='password')
         v-btn(
@@ -52,12 +52,20 @@ export default {
   mounted() {},
   created() {},
   methods: {
-    ...mapActions({}),
+    ...mapActions({
+      postSignin: action_types.POST_SIGNIN
+    }),
     ...mapMutations({
       setSigninEmail: mutation_types.SET_EMAIL_SIGNIN,
       setSigninPassword: mutation_types.SET_PASSWORD_SIGNIN
     }),
-    submitForm() {
+    async handleSignin() {
+      try {
+        await this.postSignin()
+        this.$router.push("/home")
+      } catch (error) {
+        console.error(error)
+      }
     },
   },
 }

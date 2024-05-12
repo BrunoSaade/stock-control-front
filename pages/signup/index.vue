@@ -3,7 +3,7 @@
   v-card(class="w-[540px]")
     v-card-title Sign up
     v-card-text
-      v-form(@submit.prevent='submitForm')
+      v-form(@submit.prevent='handleSignup')
         v-text-field(v-model='email' label='Email' type='email')
         v-text-field(v-model='password' label='Password' type='password')
         v-text-field(v-model='confirmPassword' label='Confirm Password' type='password')
@@ -61,13 +61,23 @@ export default {
   mounted() {},
   created() {},
   methods: {
-    ...mapActions({}),
+    ...mapActions({
+      postSignup: action_types.POST_SIGNUP
+    }),
     ...mapMutations({
       setSignupEmail: mutation_types.SET_EMAIL_SIGNUP,
       setSignupPassword: mutation_types.SET_PASSWORD_SIGNUP,
       setSignupConfirmPassword: mutation_types.SET_CONFIRM_PASSWORD_SIGNUP
     }),
-    submitForm() {
+    async handleSignup() {
+      try {
+        if (this.password === this.confirmPassword) {
+          await this.postSignup()
+          this.$router.push("/home")
+        }
+      } catch (error) {
+        console.error(error)
+      }
     },
   }
 }
