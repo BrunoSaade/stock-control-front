@@ -9,6 +9,9 @@ const api = axios.create({
 const endpoints = {
   signin: '/auth/signin',
   signup: '/auth/signup',
+  createProduct: '/product',
+  findAllProducts: '/product',
+  deleteProductByID: '/product/'
 };
 
 export default {
@@ -17,5 +20,19 @@ export default {
   },
   signin: (body) => {
     return api.post(endpoints.signin, body);
+  },
+  createProduct: (token, body) => {
+    return api.post(endpoints.createProduct, body, {
+      headers: {'Authorization': 'Bearer ' + token}
+    });
+  },
+  findAllProducts: (token) => {
+    return api.get(endpoints.findAllProducts, {headers: {'Authorization': 'Bearer ' + token}});
+  },
+  deleteProductByID: (token, id) => {
+    return api.delete(
+      endpoints.deleteProductByID + id, 
+      {headers: {'Authorization': 'Bearer ' + token}}
+    );
   },
 };
