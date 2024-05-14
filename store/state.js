@@ -12,8 +12,8 @@ const state = {
   },
   newProduct: {
     name: "",
-    quantity: 0,
-    price: 0
+    quantity: 1,
+    price: 0.01
   },
   products: [],
 }
