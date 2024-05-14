@@ -1,5 +1,5 @@
 <template lang="pug">
-.l-stack-center-center.w-full
+.l-stack-center-center.w-full.h-full
   v-card(class="w-[540px]")
     v-card-title Login
     v-card-text
