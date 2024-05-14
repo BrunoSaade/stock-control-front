@@ -5,27 +5,55 @@ v-container
     v-card-text
       v-form(@submit.prevent="addProduct")
         v-row
-          v-col(cols="12" sm="6")
+          v-col(cols="12" sm="4")
             v-text-field(v-model="productName" label="Product Name")
-          v-col(cols="12" sm="6")
-            v-text-field(v-model.number="productQuantity" label="Quantity")
+          v-col(cols="12" sm="4")
+            v-text-field(
+              v-model.number="productQuantity" 
+              label="Quantity" 
+              type="number" 
+              step="1"
+              min="0"
+            )
+          v-col(cols="12" sm="4")
+            v-text-field(
+              v-model.number="productPrice" 
+              label="Price (per product)" 
+              type="number" 
+              step="0.01"
+              min="0"
+            )
         v-btn(
           type='submit' 
           color="primary"
           class="w-[240px] !bg-secondary-200"
         ) Add
+        p.mt-4.mb-0 Total amount: {{ totalAmount }}
   v-card
     v-card-title Products in Stock
     v-card-text
-      v-list-item-group(v-if="products.length")
-        v-list-item(v-for="product in products" :key="product.id")
-          v-list-item-content
-            v-list-item-title {{ product.name }}
-            v-list-item-subtitle Quantity: {{ product.quantity }}
-          v-list-item-action
-            v-btn(@click="deleteProduct(product.id)" color="error" icon)
-              v-icon mdi-delete
-      p(v-else) No products available in stock
+      v-simple-table
+        template(v-if="products.length")
+          thead
+            tr
+              th Name
+              th Quantity
+              th Price
+              th Total Price
+              th Action
+          tbody
+            tr(v-for="product in products" :key="product.id")
+              td {{ product.name }}
+              td {{ product.quantity }}
+              td {{ product.price.toFixed(2) }}
+              td {{ (product.quantity * product.price).toFixed(2) }}
+              td
+                v-btn(@click="deleteProduct(product.id)" color="error" icon)
+                  v-icon mdi-delete
+        template(v-else)
+          tbody
+            tr
+              td(colspan="5") No products available in stock
 </template>
 
 <script>
@@ -39,6 +67,10 @@ export default {
   data() {
     return {}
   },
+  async created() {
+    await this.getFindAllProducts()
+  },
+  mounted() {},
   computed: {
     ...mapState({
       products: (state) => state.products,
@@ -59,29 +91,58 @@ export default {
       set(value) {
         this.setNewProductQuantity(value)
       },
+    },
+    productPrice: {
+      get() {
+        return this.newProduct?.price
+      },
+      set(value) {
+        this.setNewProductPrice(value)
+      },
+    },
+    totalAmount() {
+      return (parseInt(this.productQuantity) * parseFloat(this.productPrice) || 0).toFixed(2)
     }
   },
   methods: {
     ...mapMutations({
       setNewProductName: mutation_types.SET_NEW_PRODUCT_NAME,
-      setNewProductQuantity: mutation_types.SET_NEW_PRODUCT_QUANTITY
+      setNewProductQuantity: mutation_types.SET_NEW_PRODUCT_QUANTITY,
+      setNewProductPrice: mutation_types.SET_NEW_PRODUCT_PRICE
     }),
-    addProduct() {
-      const newProduct = {
-        id: this.products.length + 1,
-        name: this.productName,
-        quantity: this.productQuantity
-      };
-      console.log(newProduct)
-      this.productName = "";
-      this.productQuantity = 0;
+    ...mapActions({
+      postCreateProduct: action_types.POST_CREATE_PRODUCT,
+      getFindAllProducts: action_types.GET_FIND_ALL_PRODUCTS,
+      deleteProductByID: action_types.DELETE_PRODUCT_BY_ID
+    }),
+    async addProduct() {
+      try {
+        await this.postCreateProduct()
+        await this.getFindAllProducts()
+      } catch (error) {
+        console.log(error)
+      }
+      this.handleResetFields()
     },
-    deleteProduct(id) {
-      this.products = this.products.filter(product => product.id !== id);
+    async deleteProduct(id) {
+      try {
+        await this.deleteProductByID({id: id})
+        await this.getFindAllProducts()
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    handleResetFields() {
+      this.productName = "";
+      this.productQuantity = "";
+      this.productPrice = ""
     }
   }
 };
 </script>
 
 <style scoped>
+th {
+  @apply text-left;
+}
 </style>
