@@ -4,31 +4,44 @@ v-container
     v-card-title Add Product
     v-card-text
       v-form(@submit.prevent="addProduct")
-        v-row
-          v-col(cols="12" sm="4")
-            v-text-field(v-model="productName" label="Product Name")
-          v-col(cols="12" sm="4")
-            v-text-field(
-              v-model.number="productQuantity" 
-              label="Quantity" 
-              type="number" 
-              step="1"
-              min="0"
-            )
-          v-col(cols="12" sm="4")
-            v-text-field(
-              v-model.number="productPrice" 
-              label="Price (per product)" 
-              type="number" 
-              step="0.01"
-              min="0"
-            )
-        v-btn(
-          type='submit' 
-          color="primary"
-          class="w-[240px] !bg-secondary-200"
-        ) Add
-        p.mt-4.mb-0 Total amount: {{ totalAmount }}
+      v-custom-form#addProduct(
+        @submit="addProduct" 
+        name="addProduct",
+      )
+        template
+          fieldset
+            v-row
+              v-col(cols="12" sm="4")
+                v-text-input#productName(
+                  v-model='productName' 
+                  label="Product Name"
+                  type='text'
+                  rules="required"
+                )
+              v-col(cols="12" sm="4")
+                v-text-input#productQuantity(
+                  v-model.number='productQuantity' 
+                  label="Quantity"
+                  type='number'
+                  step="1"
+                  min="1"
+                  rules="required|min:1"
+                )
+              v-col(cols="12" sm="4")
+                v-text-input#productPrice(
+                  v-model.number='productPrice' 
+                  label="Price (per product)" 
+                  type='number'
+                  step="0.01"
+                  min="0.01"
+                  rules="required|min:0.01"
+                )
+            v-btn(
+              type='submit' 
+              color="primary"
+              class="w-[240px] !bg-secondary-200"
+            ) Add
+            p.mt-4.mb-0 Total amount: {{ totalAmount }}
   v-card
     v-card-title Products in Stock
     v-card-text

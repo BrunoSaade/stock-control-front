@@ -3,14 +3,29 @@
   v-card(class="w-[540px]")
     v-card-title Login
     v-card-text
-      v-form(@submit.prevent='handleSignin')
-        v-text-field(v-model='email' label='Email' type='email')
-        v-text-field(v-model='password' label='Password' type='password')
-        v-btn(
-          type='submit' 
-          color="primary"
-          class="w-[240px] !bg-secondary-200"
-        ) Login
+      v-custom-form#signin(
+        @submit="handleSignin" 
+        name="signin",
+      )
+        template
+          fieldset
+            v-text-input#email(
+              v-model='email' 
+              label='Email' 
+              type='email'
+              rules="required|email"
+            )
+            v-text-input#password(
+              v-model='password' 
+              label='Password' 
+              type='password'
+              rules="required"
+            )
+            v-btn(
+              type='submit' 
+              color="primary"
+              class="w-[240px] !bg-secondary-200"
+            ) Login
   p.mt-4.text-s3 Don't have an account? 
     NuxtLink.text-tertiary-200.underline(to="/signup") Sign up!
 </template>
@@ -20,9 +35,12 @@ import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
 import * as getter_types from "@/store/types/getter-types"
 import * as mutation_types from "@/store/types/mutation-types"
 import * as action_types from "@/store/types/action-types"
+import { ValidationObserver } from "vee-validate"
+import { ValidationProvider } from "vee-validate"
 export default {
   name: "Index",
   layout: "Default",
+  components: { ValidationProvider, ValidationObserver },
   props: {},
   data() {
     return {}
@@ -70,3 +88,8 @@ export default {
   },
 }
 </script>
+<style>
+.default-input--message {
+  @apply text-error-light-900 font-bold;
+}
+</style>

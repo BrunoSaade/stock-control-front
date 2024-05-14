@@ -3,15 +3,35 @@
   v-card(class="w-[540px]")
     v-card-title Sign up
     v-card-text
-      v-form(@submit.prevent='handleSignup')
-        v-text-field(v-model='email' label='Email' type='email')
-        v-text-field(v-model='password' label='Password' type='password')
-        v-text-field(v-model='confirmPassword' label='Confirm Password' type='password')
-        v-btn(
-          type='submit' 
-          color="primary"
-          class="w-[240px] !bg-secondary-200"
-        ) Sign up
+      v-custom-form#signup(
+        @submit="handleSignup" 
+        name="signin",
+      )
+        template
+          fieldset
+            v-text-input#email(
+              v-model='email' 
+              label='Email' 
+              type='email'
+              rules="required|email"
+            )
+            v-text-input#password(
+              v-model='password' 
+              label='Password' 
+              type='password'
+              rules="required"
+            )
+            v-text-input#confirmPassword(
+              v-model='confirmPassword' 
+              label='Confirm password' 
+              type='password'
+              rules="required"
+            )
+            v-btn(
+              type='submit' 
+              color="primary"
+              class="w-[240px] !bg-secondary-200"
+            ) Sign up
   p.mt-4.text-s3 Already signed up? 
     NuxtLink.text-tertiary-200.underline(to="/") Login!
 </template>
