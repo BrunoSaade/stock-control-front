@@ -23,5 +23,11 @@ const mutations = {
   [types.SET_NEW_PRODUCT_QUANTITY]: function (state, value) {
     state.newProduct.quantity = value
   },
+  [types.SET_NEW_PRODUCT_PRICE]: function (state, value) {
+    state.newProduct.price = value
+  },
+  [types.SET_PRODUCTS]: function (state, value) {
+    state.products = value
+  }
 }
 export default mutations 
