@@ -13,6 +13,7 @@ const state = {
   newProduct: {
     name: "",
     quantity: 0,
+    price: 0
   },
   products: [],
 }
