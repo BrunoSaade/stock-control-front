@@ -1,2 +1,5 @@
 export const POST_SIGNUP = "postSignup"
 export const POST_SIGNIN = "postSignin"
+export const POST_CREATE_PRODUCT = "postCreateProduct"
+export const GET_FIND_ALL_PRODUCTS = "getFindAllProducts"
+export const DELETE_PRODUCT_BY_ID = "deleteProductByID"

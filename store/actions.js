@@ -29,6 +29,39 @@ const actions = {
       throw error;
     }
   },
+  [types.POST_CREATE_PRODUCT]: async function ({ dispatch, commit, state }) {
+    try {
+      const body = {
+        name: state.newProduct.name,
+        quantity: state.newProduct.quantity,
+        price: state.newProduct.price,
+      };
+      const token = window.localStorage.getItem('token')
+      const response = await ApiService.createProduct(token, body);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
+  [types.GET_FIND_ALL_PRODUCTS]: async function ({ dispatch, commit, state }) {
+    try {
+      const token = window.localStorage.getItem('token')
+      const response = await ApiService.findAllProducts(token);
+      commit(mutation_types.SET_PRODUCTS, response.data.data)
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
+  [types.DELETE_PRODUCT_BY_ID]: async function ({ dispatch, commit, state }, {id}) {
+    try {
+      const token = window.localStorage.getItem('token')
+      const response = await ApiService.deleteProductByID(token, id);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
 } 
 
 export default actions
