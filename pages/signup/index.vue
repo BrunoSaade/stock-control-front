@@ -1,10 +1,10 @@
 <template lang="pug">
 .l-stack-center-center.w-full.h-full
   v-card(class="w-[540px]")
-    v-card-title Login
+    v-card-title Sign up
     v-card-text
-      v-custom-form#signin(
-        @submit="handleSignin" 
+      v-custom-form#signup(
+        @submit="handleSignup" 
         name="signin",
       )
         template
@@ -21,13 +21,19 @@
               type='password'
               rules="required"
             )
+            v-text-input#confirmPassword(
+              v-model='confirmPassword' 
+              label='Confirm password' 
+              type='password'
+              rules="required"
+            )
             v-btn(
               type='submit' 
               color="primary"
               class="w-[240px] !bg-secondary-200"
-            ) Login
-  p.mt-4.text-s3 Don't have an account? 
-    NuxtLink.text-tertiary-200.underline(to="/signup") Sign up!
+            ) Sign up
+  p.mt-4.text-s3 Already signed up? 
+    NuxtLink.text-tertiary-200.underline(to="/") Login!
 </template>
 
 <script>
@@ -35,34 +41,39 @@ import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
 import * as getter_types from "@/store/types/getter-types"
 import * as mutation_types from "@/store/types/mutation-types"
 import * as action_types from "@/store/types/action-types"
-import { ValidationObserver } from "vee-validate"
-import { ValidationProvider } from "vee-validate"
 export default {
   name: "Index",
   layout: "Default",
-  components: { ValidationProvider, ValidationObserver },
   props: {},
   data() {
     return {}
   },
   computed: {
     ...mapState({
-      authSignin: (state) => state.auth?.signin,
+      authSignup: (state) => state.auth?.signup,
     }),
     email: {
       get() {
-        return this.authSignin?.email
+        return this.authSignup?.email
       },
       set(value) {
-        this.setSigninEmail(value)
+        this.setSignupEmail(value)
       },
     },
     password: {
       get() {
-        return this.authSignin?.password
+        return this.authSignup?.password
       },
       set(value) {
-        this.setSigninPassword(value)
+        this.setSignupPassword(value)
+      },
+    },
+    confirmPassword: {
+      get() {
+        return this.authSignup?.confirmPassword
+      },
+      set(value) {
+        this.setSignupConfirmPassword(value)
       },
     }
   },
@@ -71,25 +82,23 @@ export default {
   created() {},
   methods: {
     ...mapActions({
-      postSignin: action_types.POST_SIGNIN
+      postSignup: action_types.POST_SIGNUP
     }),
     ...mapMutations({
-      setSigninEmail: mutation_types.SET_EMAIL_SIGNIN,
-      setSigninPassword: mutation_types.SET_PASSWORD_SIGNIN
+      setSignupEmail: mutation_types.SET_EMAIL_SIGNUP,
+      setSignupPassword: mutation_types.SET_PASSWORD_SIGNUP,
+      setSignupConfirmPassword: mutation_types.SET_CONFIRM_PASSWORD_SIGNUP
     }),
-    async handleSignin() {
+    async handleSignup() {
       try {
-        await this.postSignin()
-        this.$router.push("/home")
+        if (this.password === this.confirmPassword) {
+          await this.postSignup()
+          this.$router.push("/home")
+        }
       } catch (error) {
         console.error(error)
       }
     },
-  },
+  }
 }
 </script>
-<style>
-.default-input--message {
-  @apply text-error-light-900 font-bold;
-}
-</style>
