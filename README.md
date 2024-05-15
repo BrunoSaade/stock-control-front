@@ -53,6 +53,10 @@ Este diretório contém as visualizações e rotas do seu aplicativo. Nuxt irá 
 
 Mais informações sobre o uso deste diretório na [documentação](https://nuxtjs.org/docs/2.x/get-started/routing).
 
+### `services`
+
+O diretório de services contém serviços JavaScript que em contextos gerais se comunicam/integram recursos externos, por exemplo a integração com uma API.
+
 ### `plugins`
 
 O diretório de plug-ins contém plug-ins JavaScript que você deseja executar antes de instanciar o aplicativo Vue.js raiz. Este é o lugar para adicionar plugins Vue e injetar funções ou constantes. Toda vez que você precisar usar `Vue.use()`, você deve criar um arquivo em `plugins/` e adicionar seu caminho para plugins em `nuxt.config.js`.
