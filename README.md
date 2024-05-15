@@ -1,4 +1,4 @@
-# controle-estoque-front
+# stock-control-front
 
 ## Configuração do projeto
 
