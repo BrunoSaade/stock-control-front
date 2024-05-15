@@ -1,6 +1,12 @@
 # controle-estoque-front
 
-## Build Setup
+## Configuração do projeto
+
+Certifique-se de ter o Node.js instalado em sua máquina, consulte a [documentação](https://nodejs.org/en/download).
+
+Esse projeto Front-End deve ser iniciado juntamente com o [projeto Back-End](https://github.com/BrunoSaade/stock-control-back) para o seu funcionamento.
+
+No arquivo [api.js](https://github.com/BrunoSaade/controle-estoque/blob/master/services/api.js) atribua à constante apiBaseUrl a url Back-End que está sendo executado.
 
 ```bash
 # install dependencies
@@ -17,53 +23,52 @@ $ yarn start
 $ yarn generate
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+Para uma explicação detalhada de como as coisas funcionam, consulte a [documentação](https://nuxtjs.org).
 
 ## Special Directories
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+Você pode criar os seguintes diretórios extras, alguns dos quais têm comportamentos especiais. Apenas `pages` é obrigatório; você pode excluí-los se não quiser usar sua funcionalidade.
 
 ### `assets`
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+O diretório de assets contém seus assets não compilados, como arquivos Stylus ou Sass, imagens ou fontes.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+Mais informações sobre o uso deste diretório na [documentação](https://nuxtjs.org/docs/2.x/directory-structure/assets).
 
 ### `components`
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
+O diretório de components contém seus componentes Vue.js. Os componentes compõem as diferentes partes da sua página e podem ser reutilizados e importados nas suas páginas, layouts e até mesmo em outros componentes.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
+Mais informações sobre o uso deste diretório na [documentação](https://nuxtjs.org/docs/2.x/directory-structure/components).
 
 ### `layouts`
 
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
+Os layouts são de grande ajuda quando você quer mudar a aparência do seu aplicativo Nuxt, seja para incluir uma barra lateral ou ter layouts distintos para mobile e desktop.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
-
+Mais informações sobre o uso deste diretório na [documentação](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
 
 ### `pages`
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+Este diretório contém as visualizações e rotas do seu aplicativo. Nuxt irá ler todos os arquivos `*.vue` dentro deste diretório e configurar o Vue Router automaticamente.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
+Mais informações sobre o uso deste diretório na [documentação](https://nuxtjs.org/docs/2.x/get-started/routing).
 
 ### `plugins`
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+O diretório de plug-ins contém plug-ins JavaScript que você deseja executar antes de instanciar o aplicativo Vue.js raiz. Este é o lugar para adicionar plugins Vue e injetar funções ou constantes. Toda vez que você precisar usar `Vue.use()`, você deve criar um arquivo em `plugins/` e adicionar seu caminho para plugins em `nuxt.config.js`.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+Mais informações sobre o uso deste diretório na [documentação](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
 
 ### `static`
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
+Este diretório contém seus arquivos estáticos. Cada arquivo dentro deste diretório é mapeado para `/`.
 
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
+Exemplo: `/static/robots.txt` é mapeado como `/robots.txt`.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
+Mais informações sobre o uso deste diretório na [documentação](https://nuxtjs.org/docs/2.x/directory-structure/static).
 
 ### `store`
 
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
+Este diretório contém os arquivos da sua loja Vuex. Criar um arquivo neste diretório ativa automaticamente o Vuex.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+Mais informações sobre o uso deste diretório na [documentação](https://nuxtjs.org/docs/2.x/directory-structure/store).
